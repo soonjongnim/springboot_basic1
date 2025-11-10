@@ -187,6 +187,18 @@ public class HomeController {
         }
         return "%d번 삭제 처리하였습니다.".formatted(id);
     }
+    @GetMapping("/home/modifyPerson")
+    @ResponseBody
+    public String modifyPerson(int id, String name, int age) {
+        Person found = personList.stream().filter(person -> person.getId() == id).findFirst().orElse(null);
+        if  (found == null) {
+            return "%d번 사람이 존재하지 않습니다.".formatted(id);
+        }
+        found.setName(name);
+        found.setAge(age);
+
+        return "%d번 수정 처리되었습니다.".formatted(id);
+    }
 
 }
 
@@ -214,8 +226,8 @@ class Article2 {
 class Person {
     private static int lastId;
     private final int id;
-    private final String name;
-    private final int age;
+    private String name;
+    private int age;
 
     static {
         lastId = 0;
