@@ -27,5 +27,16 @@ public class HomeController {
         //     - 클라이언트(웹 브라우저)에 "반갑습니다."라는 문자열을 그대로 응답으로 보냄.
         return "반갑습니다.";
     }
+
+    @GetMapping("/home/main2")
+    @ResponseBody
+    public String showHomeMain2() {
+        return "좋아요.";
+    }
+    @GetMapping("/home/main3")
+    @ResponseBody
+    public String showHomeMain3() {
+        return "강력합니다.";
+    }
 }
 
