@@ -1,0 +1,31 @@
+package com.soon9086.basic1.boundedContext.home.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+// HomeController.java
+
+// ① @Controller : 이 클래스가 Spring MVC의 "컨트롤러" 역할을 한다는 것을 표시.
+//     - 사용자의 요청(URL)을 받아서 처리하고, 응답을 반환함.
+@Controller
+public class HomeController {
+
+    // ② @GetMapping("/home/main")
+    //     - 사용자가 "/home/main" 주소로 GET 방식 요청을 보낼 때,
+    //       아래 메서드(showHomeMain)를 실행하도록 지정.
+    @GetMapping("/home/main")
+
+    // ③ @ResponseBody
+    //     - 메서드가 반환하는 문자열을 HTML 페이지 이름이 아니라,
+    //       "그대로 HTTP 응답 본문(body)"으로 보냄.
+    //       즉, 뷰 파일(.jsp, .html 등)을 찾지 않고 문자열을 직접 출력함.
+    @ResponseBody
+    public String showHomeMain() {
+
+        // ④ return "반갑습니다.";
+        //     - 클라이언트(웹 브라우저)에 "반갑습니다."라는 문자열을 그대로 응답으로 보냄.
+        return "반갑습니다.";
+    }
+}
+
