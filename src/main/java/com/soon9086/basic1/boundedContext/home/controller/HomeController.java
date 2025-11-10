@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.*;
+
 // HomeController.java
 
 // ① @Controller : 이 클래스가 Spring MVC의 "컨트롤러" 역할을 한다는 것을 표시.
@@ -81,6 +83,33 @@ public class HomeController {
                     .append("<br>");
         }
         return sb.toString(); // String타입으로 변환
+    }
+    @GetMapping("/home/returnMap")
+    @ResponseBody
+    public Map<String, Object> showReturnMap() {
+//        Map<String, Object> map = Map.of(
+//                "id", 1,
+//                "subject", "제목1",
+//                "content", "내용1",
+//                "writerName", "홍길순",
+//                "articleNo", new ArrayList<>() {{
+//                    add(1);
+//                    add(2);
+//                    add(3);
+//                }}
+//        );
+        Map<String, Object> map = new LinkedHashMap<>() {{
+            put("id", 1);
+            put("subject", "제목1");
+            put("content", "내용1");
+            put("writerName", "홍길순");
+            put("articleNo", new ArrayList<>() {{
+                add(1);
+                add(2);
+                add(3);
+            }});
+        }};
+        return map;
     }
 }
 
