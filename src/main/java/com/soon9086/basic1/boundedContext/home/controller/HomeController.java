@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -52,6 +53,34 @@ public class HomeController {
     public int showPlus(@RequestParam(defaultValue = "0") int a, @RequestParam(defaultValue = "0") int b) {
         // defaultValue = "0" 기본값 지정됨.
         return a+b;
+    }
+    @GetMapping("/home/gugudan")
+    @ResponseBody
+    public String showGugudan(@RequestParam(defaultValue = "2") int dan, @RequestParam(defaultValue = "9") int limit) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 1; i <= limit; i++) {
+            sb.append(dan)
+                    .append(" x ")
+                    .append(i)
+                    .append(" = ")
+                    .append(dan*i)
+                    .append("<br>");
+        }
+        return sb.toString(); // String타입으로 변환
+    }
+    @GetMapping("/home/gugudan/{dan}/{limit}")
+    @ResponseBody
+    public String showGugudanPathVariable(@PathVariable int dan, @PathVariable int limit) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 1; i <= limit; i++) {
+            sb.append(dan)
+                    .append(" x ")
+                    .append(i)
+                    .append(" = ")
+                    .append(dan*i)
+                    .append("<br>");
+        }
+        return sb.toString(); // String타입으로 변환
     }
 }
 
