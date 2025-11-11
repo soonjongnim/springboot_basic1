@@ -17,6 +17,11 @@ public class MemberController {
     @GetMapping("/member/login")
     @ResponseBody
     public RsData login(String username, String password) {
+        if(username.trim().isEmpty()) {
+            return RsData.of("F-1", "아이디를 입력해주세요.");
+        } else if(password.trim().isEmpty()) {
+            return RsData.of("F-2", "비밀번호를 입력해주세요.");
+        }
         return memberService.tryLogin(username, password);
     }
 }
