@@ -1,10 +1,13 @@
 package com.soon9086.basic1.boundedContext.home.controller;
 
+import com.soon9086.basic1.boundedContext.member.entity.Member;
+import com.soon9086.basic1.boundedContext.member.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,23 +24,22 @@ import java.util.*;
 public class HomeController {
     private int num;
     private List<Person> personList;
+    @Autowired  // memberService 변수에 IOC 컨테이너에 의해 생성된 객체가 연결됨
+    private MemberService memberService;
 
     public HomeController() {
         num = 0;
         personList = new ArrayList<>();
     }
-    // ② @GetMapping("/home/main")
-    //     - 사용자가 "/home/main" 주소로 GET 방식 요청을 보낼 때,
-    //       아래 메서드(showHomeMain)를 실행하도록 지정.
+
+    @GetMapping("/home/user1")
+    @ResponseBody
+    public Member showUser1() {
+        return memberService.findByUsername("user1");
+    }
     @GetMapping("/home/main")
-    // ③ @ResponseBody
-    //     - 메서드가 반환하는 문자열을 HTML 페이지 이름이 아니라,
-    //       "그대로 HTTP 응답 본문(body)"으로 보냄.
-    //       즉, 뷰 파일(.jsp, .html 등)을 찾지 않고 문자열을 직접 출력함.
     @ResponseBody
     public String showHomeMain() {
-        // ④ return "반갑습니다.";
-        //     - 클라이언트(웹 브라우저)에 "반갑습니다."라는 문자열을 그대로 응답으로 보냄.
         return "반갑습니다.";
     }
     @GetMapping("/home/main2")
