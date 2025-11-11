@@ -26,10 +26,14 @@ public class MemberService {
             return RsData.of("F-4", "비밀번호가 일치하지 않습니다.");
         }
 
-        return RsData.of("S-1", "%s님 환영합니다.".formatted(username));
+        return RsData.of("S-1", "%s님 환영합니다.".formatted(username), member.getId());
     }
 
     public Member findByUsername(String user1) {
         return memberRepository.findByUsername(user1);
+    }
+
+    public Member findById(long id) {
+        return memberRepository.fineById(id);
     }
 }
