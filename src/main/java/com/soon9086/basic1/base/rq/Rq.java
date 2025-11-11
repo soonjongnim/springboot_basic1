@@ -20,19 +20,15 @@ public class Rq {
     }
 
     public boolean removeCookie(String name) {
-        if(req.getCookies() != null) {
-            Arrays.stream(req.getCookies())
-                    .filter(cookie -> cookie.getName().equals(name))
-                    .forEach(cookie -> {
-                        cookie.setMaxAge(0);    // 쿠키의 수명을 만료
-                        resp.addCookie(cookie); // 만료한 쿠키를 추가
-                    });
-
-            // anyMath : 조건을 만족하면 true, 조건이 일치하지 않으면 false
-            return Arrays.stream(req.getCookies())
-                    .anyMatch(cookie -> cookie.getName().equals(name));
+        Cookie cookie = Arrays.stream(req.getCookies())
+                .filter(c -> c.getName().equals(name))
+                .findFirst()
+                .orElse(null);
+        if(cookie != null) {
+            cookie.setMaxAge(0);
+            resp.addCookie(cookie);
+            return true;
         }
-
         return false;
     }
 
