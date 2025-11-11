@@ -63,10 +63,14 @@ public class Rq {
     }
 
     public long getSessionAsLong(String name, long defaultValue) {
+        Object attr = req.getSession().getAttribute(name);
+        if (attr == null) return defaultValue;
+
         try {
-            long value = (long) req.getSession().getAttribute(name);
-            return value;
-        }  catch (NumberFormatException e) {
+            return (attr instanceof Long)
+                    ? (Long) attr
+                    : Long.parseLong(attr.toString());
+        } catch (Exception e) {
             return defaultValue;
         }
     }
@@ -146,4 +150,12 @@ public class Rq {
         return debug.toString();
     }
 
+    public boolean isLogined() {
+        long loginedMemberId = getSessionAsLong("loginedMemberId", 0);
+        return loginedMemberId > 0;
+    }
+
+    public boolean isLogout() {
+        return !isLogined();
+    }
 }
