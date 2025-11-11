@@ -29,28 +29,16 @@ public class MemberController {
     */
 
     @GetMapping("/member/login")
-    @ResponseBody
     public String login() {
-        if(rq.isLogined()) {
-            return """
-                    <script>
-                        alert("이미 로그인 되어있습니다.");
-                    </script>
-                    """;
-        }
+//        if(rq.isLogined()) {
+//            return """
+//                    <script>
+//                        alert("이미 로그인 되어있습니다.");
+//                    </script>
+//                    """;
+//        }
 
-        return """
-                <form class="login-container" action="login" method="post">
-                  <h2>로그인</h2>
-                  <input type="text" id="username" name="username" placeholder="아이디" required>
-                  <input type="password" id="password" name="password" placeholder="비밀번호" required>
-                  <button type="submit">로그인</button>
-                  <div class="links">
-                    <a href="#">비밀번호 찾기</a> |\s
-                    <a href="#">회원가입</a>
-                  </div>
-                </form>
-                """;
+        return "usr/member/login";
     }
 
     @PostMapping("/member/login")
