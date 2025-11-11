@@ -38,7 +38,7 @@ public class MemberController {
 //                    """;
 //        }
 
-        return "usr/member/login";
+        return "member/login";  // → /WEB-INF/views/member/login.jsp
     }
 
     @PostMapping("/member/login")
