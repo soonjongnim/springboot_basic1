@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -43,7 +44,7 @@ public class MemberController {
 
     @PostMapping("/member/login")
     @ResponseBody
-    public RsData login(String username, String password, HttpServletRequest req, HttpServletResponse resp) {
+    public RsData login(String username, String password) {
         if(username.trim().isEmpty()) {
             return RsData.of("F-1", "아이디를 입력해주세요.");
         } else if(password.trim().isEmpty()) {
@@ -61,7 +62,7 @@ public class MemberController {
 
     @GetMapping("/member/logout")
     @ResponseBody
-    public RsData logout(HttpServletRequest req, HttpServletResponse resp) {
+    public RsData logout() {
         boolean cookieRemoved = rq.removeSession("loginedMemberId");
         if(!cookieRemoved) {
             return RsData.of("F-1", "이미 로그아웃 상태입니다.");
@@ -71,16 +72,11 @@ public class MemberController {
     }
 
     @GetMapping("/member/me")
-    @ResponseBody
-    public RsData showMe(HttpServletRequest req, HttpServletResponse resp) {
-        long loginedMemberId = rq.getSessionAsLong("loginedMemberId", 0);   // 0은 로그인이 안되어 있다는 의미
-        boolean isLogined = loginedMemberId > 0;
-        if(!isLogined) {
-            return RsData.of("F-1", "로그인 후 이용해주세요.");
-        }
-
+    public String showMe(Model model) {
+        long loginedMemberId = rq.getLoginedMember();
         Member member = memberService.findById(loginedMemberId);
-        return RsData.of("S-1", "당신의 username(은)는 %s 입니다.".formatted(member.getUsername()));
+        model.addAttribute("member", member);
+        return "member/me";
     }
 
     @GetMapping("/member/session")

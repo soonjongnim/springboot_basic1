@@ -20,5 +20,7 @@
         <a href="#">회원가입</a>
     </div>
 </form>
+
+<script src="${pageContext.request.contextPath}/js/script.js"></script>
 </body>
 </html>
