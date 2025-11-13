@@ -21,6 +21,7 @@ html,body { height:100%; font-family: Inter, 'Noto Sans KR', system-ui, -apple-s
     box-shadow: 0 10px 30px rgba(33,40,60,0.08);
     padding: 36px;
     border: 1px solid rgba(18,24,38,0.04);
+    margin: 10px auto;
 }
 
 header.site-header {
@@ -148,21 +149,41 @@ header.site-header {
 /*    animation: indeterminate 1.2s infinite linear;*/
 /*}*/
 
+/* 요약 + 다운로드 영역 전체 너비 */
+#resultArea {
+    display: none;      /* JS에서 필요 시 보여줌 */
+    width: 100%;        /* 화면 가득 채우기 */
+    max-width: 900px;   /* 원하는 최대 폭 */
+    margin: 20px auto;  /* 상하 여백 + 가운데 정렬 */
+    padding: 15px;
+    background-color: #f8f8f8;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    word-break: break-word;
+}
+
+/* 요약 텍스트 스타일 */
 .summary-block {
-    margin-top: 15px;
-    background: #f8f8f8;
-    padding: 12px;
-    border-radius: 8px;
-    line-height: 1.5;
+    width: 100%;
+    margin-bottom: 15px;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+/* 다운로드 버튼 스타일 */
+.download-block {
+    width: 100%;
+    text-align: center;  /* 버튼 가운데 */
 }
 
 .btn-download {
     display: inline-block;
     background-color: #4caf50;
     color: white;
-    padding: 8px 14px;
-    border-radius: 6px;
+    padding: 10px 18px;
+    border-radius: 8px;
     text-decoration: none;
+    font-weight: bold;
     transition: background 0.2s;
 }
 

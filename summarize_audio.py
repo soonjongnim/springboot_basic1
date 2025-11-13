@@ -4,12 +4,15 @@ import requests
 import os
 import warnings
 import sys
+from dotenv import load_dotenv
 sys.stdout.reconfigure(encoding='utf-8')
 warnings.filterwarnings("ignore")
+# .env 파일의 환경변수 불러오기
+load_dotenv()
 
 def summarize_text(text):
     API_URL = "https://api-inference.huggingface.co/models/facebook/bart-large-cnn"
-    headers = {"Authorization": f"Bearer {os.getenv('HF_TOKEN', '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')}"}
+    headers = {"Authorization": f"Bearer {os.getenv('HF_TOKEN')}"}
 
     response = requests.post(API_URL, headers=headers, json={"inputs": text})
     

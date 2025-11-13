@@ -3,4 +3,5 @@ python버전: 3.11.0
 pip install openai-whisper requests
 pip install numpy==1.26.4
 pip install torch==2.1.0 torchaudio torchvision --index-url https://download.pytorch.org/whl/cu118
+pip install python-dotenv
 테스트방법: python summarize_audio.py \downloads\audio_1762996421141.mp3
