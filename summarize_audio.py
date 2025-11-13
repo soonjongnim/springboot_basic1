@@ -9,10 +9,10 @@ sys.stdout.reconfigure(encoding='utf-8')
 warnings.filterwarnings("ignore")
 # .env 파일의 환경변수 불러오기
 load_dotenv()
-
+api_key = os.getenv('HF_TOKEN')
 def summarize_text(text):
     API_URL = "https://api-inference.huggingface.co/models/facebook/bart-large-cnn"
-    headers = {"Authorization": f"Bearer {os.getenv('HF_TOKEN')}"}
+    headers = {"Authorization": f"Bearer {api_key}"}
 
     response = requests.post(API_URL, headers=headers, json={"inputs": text})
     
