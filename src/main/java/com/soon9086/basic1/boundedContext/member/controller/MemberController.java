@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Arrays;
@@ -29,6 +30,29 @@ public class MemberController {
     }
     */
 
+    // 회원가입 페이지
+    @GetMapping("/member/register")
+    public String showRegisterPage() {
+        return "member/register";  // --> /WEB-INF/views/member/register.jsp
+    }
+
+    // 회원가입 처리
+    @PostMapping("/member/register")
+    public String doRegister(@RequestParam String username,
+                             @RequestParam String email,
+                             @RequestParam String password,
+                             @RequestParam String confirm) {
+
+        if (!password.equals(confirm)) {
+            System.out.println("비밀번호 불일치!");
+            return "redirect:/member/register?error=password";
+        }
+
+        System.out.printf("회원가입 성공: %s / %s%n", username, email);
+        return "redirect:/member/login";
+    }
+
+    // 로그인페이지
     @GetMapping("/member/login")
     public String login() {
 //        if(rq.isLogined()) {
@@ -42,13 +66,14 @@ public class MemberController {
         return "member/login";  // → /WEB-INF/views/member/login.jsp
     }
 
+    // 로그인 처리
     @PostMapping("/member/login")
-    @ResponseBody
-    public RsData login(String username, String password) {
+    public String login(String username, String password) {
         if(username.trim().isEmpty()) {
-            return RsData.of("F-1", "아이디를 입력해주세요.");
+            // 로그인 페이지로 돌아가면서 에러 메시지 전달 가능
+            return "redirect:/member/login?error=username";
         } else if(password.trim().isEmpty()) {
-            return RsData.of("F-2", "비밀번호를 입력해주세요.");
+            return "redirect:/member/login?error=password";
         }
 
         RsData rsData = memberService.tryLogin(username, password);
@@ -56,29 +81,32 @@ public class MemberController {
             // 쿠키
             Member member = (Member) rsData.getData();
             rq.setSession("loginedMemberId", member.getId());
+            // 로그인 성공 시 메인 페이지로 이동
+            return "redirect:/";
+        } else {
+            // 로그인 실패 시 로그인 페이지로 돌아가기
+            return "redirect:/member/login?error=fail";
         }
-        return rsData;
     }
 
-    @GetMapping("/member/logout")
-    @ResponseBody
-    public RsData logout() {
+    // 로그아웃 처리
+    @PostMapping("/member/logout")
+    public String logout() {
         boolean cookieRemoved = rq.removeSession("loginedMemberId");
-        if(!cookieRemoved) {
-            return RsData.of("F-1", "이미 로그아웃 상태입니다.");
-        }
-
-        return RsData.of("S-1", "로그아웃 되었습니다.");
+        return "redirect:/";
     }
 
+    // 회원정보페이지
     @GetMapping("/member/me")
     public String showMe(Model model) {
         long loginedMemberId = rq.getLoginedMember();
+        System.out.println("loginedMemberId: " + loginedMemberId);
         Member member = memberService.findById(loginedMemberId);
         model.addAttribute("member", member);
         return "member/me";
     }
 
+    // 세션 정보확인
     @GetMapping("/member/session")
     @ResponseBody
     public String showSession() {

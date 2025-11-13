@@ -6,9 +6,16 @@
 <head>
     <meta charset="UTF-8">
     <title>회원 정보</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/member.css">
+    <!-- 공통 CSS -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/footer.css">
+    <!-- 페이지 전용 CSS -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/memberInfo.css">
 </head>
 <body>
+
+<jsp:include page="/WEB-INF/views/common/header.jsp" />
+
 <div class="info-container">
     <h2>회원 정보</h2>
 
@@ -38,6 +45,8 @@
         <p style="color: red; font-weight: bold; text-align: center;">로그인 정보가 없습니다.</p>
     </c:if>
 </div>
+
+<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 
 <script src="${pageContext.request.contextPath}/js/member.js"></script>
 </body>

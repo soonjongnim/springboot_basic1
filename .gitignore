@@ -141,3 +141,6 @@ hs_err_pid*
 replay_pid*
 
 # End of https://www.toptal.com/developers/gitignore/api/intellij,java
+
+# 🎵 YouTube 오디오 다운로드 파일 무시
+/downloads/

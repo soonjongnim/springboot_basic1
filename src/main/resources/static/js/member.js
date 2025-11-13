@@ -5,8 +5,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!name) {
             e.preventDefault();
             alert("이름을 입력하세요!");
-        } else {
-            alert("회원 정보가 수정되었습니다!");
         }
     });
 });
