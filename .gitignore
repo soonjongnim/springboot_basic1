@@ -146,4 +146,4 @@ replay_pid*
 /downloads/
 
 # 암호관련파일 무시
-*.env
+.env
