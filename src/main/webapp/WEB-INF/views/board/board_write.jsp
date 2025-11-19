@@ -1,14 +1,13 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <title>게시글 등록</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/footer.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/board_write.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/boardWrite.css">
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
@@ -27,7 +26,8 @@
         </div>
 
         <div class="form-footer">
-            <button type="submit" class="btn-submit">등록하기</button>
+            <button type="submit" class="btn btn-submit">등록하기</button>
+            <a href="/board/list" class="btn btn-cancel">취소</a>
         </div>
     </form>
 </main>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.soon9086.basic1.Basic1ApplicationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2025-11-12T01:43:01.732Z" hostname="DESKTOP-8LRHCA9" time="0.565">
+<testsuite name="com.soon9086.basic1.Basic1ApplicationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2025-11-18T08:56:28.953Z" hostname="DESKTOP-8LRHCA9" time="0.641">
   <properties/>
-  <testcase name="contextLoads()" classname="com.soon9086.basic1.Basic1ApplicationTests" time="0.565"/>
-  <system-out><![CDATA[10:43:00.100 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.soon9086.basic1.Basic1ApplicationTests]: Basic1ApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-10:43:00.228 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.soon9086.basic1.Basic1Application for test class com.soon9086.basic1.Basic1ApplicationTests
+  <testcase name="contextLoads()" classname="com.soon9086.basic1.Basic1ApplicationTests" time="0.641"/>
+  <system-out><![CDATA[17:56:26.465 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.soon9086.basic1.Basic1ApplicationTests]: Basic1ApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+17:56:26.597 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.soon9086.basic1.Basic1Application for test class com.soon9086.basic1.Basic1ApplicationTests
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -14,10 +14,10 @@
 
 ?[32m :: Spring Boot :: ?[39m              ?[2m (v3.5.7)?[0;39m
 
-?[2m2025-11-12T10:43:00.639+09:00?[0;39m ?[32m INFO?[0;39m ?[35m19180?[0;39m ?[2m--- [basic1] [    Test worker] ?[0;39m?[36mc.s.basic1.Basic1ApplicationTests       ?[0;39m ?[2m:?[0;39m Starting Basic1ApplicationTests using Java 21.0.9 with PID 19180 (started by dube in C:\java\springboot_basic1)
-?[2m2025-11-12T10:43:00.641+09:00?[0;39m ?[32m INFO?[0;39m ?[35m19180?[0;39m ?[2m--- [basic1] [    Test worker] ?[0;39m?[36mc.s.basic1.Basic1ApplicationTests       ?[0;39m ?[2m:?[0;39m No active profile set, falling back to 1 default profile: "default"
-?[2m2025-11-12T10:43:01.464+09:00?[0;39m ?[32m INFO?[0;39m ?[35m19180?[0;39m ?[2m--- [basic1] [    Test worker] ?[0;39m?[36mo.s.b.a.w.s.WelcomePageHandlerMapping   ?[0;39m ?[2m:?[0;39m Adding welcome page: class path resource [static/index.html]
-?[2m2025-11-12T10:43:01.719+09:00?[0;39m ?[32m INFO?[0;39m ?[35m19180?[0;39m ?[2m--- [basic1] [    Test worker] ?[0;39m?[36mc.s.basic1.Basic1ApplicationTests       ?[0;39m ?[2m:?[0;39m Started Basic1ApplicationTests in 1.333 seconds (process running for 2.543)
+?[2m2025-11-18T17:56:27.060+09:00?[0;39m ?[32m INFO?[0;39m ?[35m4748?[0;39m ?[2m--- [basic1] [    Test worker] ?[0;39m?[36mc.s.basic1.Basic1ApplicationTests       ?[0;39m ?[2m:?[0;39m Starting Basic1ApplicationTests using Java 21.0.9 with PID 4748 (started by dube in C:\java\springboot_basic1)
+?[2m2025-11-18T17:56:27.063+09:00?[0;39m ?[32m INFO?[0;39m ?[35m4748?[0;39m ?[2m--- [basic1] [    Test worker] ?[0;39m?[36mc.s.basic1.Basic1ApplicationTests       ?[0;39m ?[2m:?[0;39m No active profile set, falling back to 1 default profile: "default"
+?[2m2025-11-18T17:56:28.564+09:00?[0;39m ?[32m INFO?[0;39m ?[35m4748?[0;39m ?[2m--- [basic1] [    Test worker] ?[0;39m?[36mo.s.b.a.w.s.WelcomePageHandlerMapping   ?[0;39m ?[2m:?[0;39m Adding welcome page: class path resource [static/index.html]
+?[2m2025-11-18T17:56:28.937+09:00?[0;39m ?[32m INFO?[0;39m ?[35m4748?[0;39m ?[2m--- [basic1] [    Test worker] ?[0;39m?[36mc.s.basic1.Basic1ApplicationTests       ?[0;39m ?[2m:?[0;39m Started Basic1ApplicationTests in 2.185 seconds (process running for 3.364)
 ]]></system-out>
   <system-err><![CDATA[Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
 WARNING: A Java agent has been loaded dynamically (C:\Users\dube\.gradle\caches\modules-2\files-2.1\net.bytebuddy\byte-buddy-agent\1.17.8\f09415827a71be7ed621c7bd02550678f28bc81c\byte-buddy-agent-1.17.8.jar)

@@ -1,0 +1,59 @@
+/* 상단 네비게이션 */
+.navbar {
+    background-color: #1976d2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 50px;
+    color: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.navbar .logo {
+    font-weight: bold;
+    font-size: 1.3em;
+}
+
+/* ✅ 첫 번째 메뉴 항목만 오른쪽 여백 15px */
+.navbar .menu a:first-child {
+    margin-right: 5px;
+}
+
+.navbar .menu a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0;
+    margin-left: 10px;
+}
+
+.navbar .menu a:hover {
+    text-decoration: underline;
+}
+
+.navbar .menu span {
+    background-color: #1976d2;
+    color: white;
+    padding: 12px 30px;
+    margin: 10px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+/* 로그아웃 버튼 전용 스타일 */
+.btn-logout {
+    width: unset;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-logout:hover {
+    background-color: #fff; /* 배경 흰색 */
+    color: #000;            /* 글자 검은색 */
+}

@@ -1,5 +1,8 @@
 package com.soon9086.basic1.boundedContext.board.controller;
 
+import com.soon9086.basic1.boundedContext.board.model.Board;
+import com.soon9086.basic1.boundedContext.board.service.BoardService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
@@ -9,8 +12,8 @@ import java.util.*;
 @RequestMapping("/board")
 public class BoardController {
 
-    // 임시 저장용 리스트 (DB 연결 전 테스트용)
-    private List<Map<String, String>> boardList = new ArrayList<>();
+    @Autowired
+    private BoardService boardService;
 
     // 게시글 등록 화면
     @GetMapping("/write")
@@ -23,21 +26,55 @@ public class BoardController {
     public String save(@RequestParam String title,
                        @RequestParam String content,
                        Model model) {
-        Map<String, String> post = new HashMap<>();
-        post.put("title", title);
-        post.put("content", content);
-        post.put("date", java.time.LocalDateTime.now().toString());
-        boardList.add(0, post); // 최신 글 위로
+        Board board = new Board();
+        board.setTitle(title);
+        board.setContent(content);
 
-        model.addAttribute("message", "게시글이 등록되었습니다!");
-        model.addAttribute("boardList", boardList);
-        return "/board/board_list";
+        boardService.save(board); // ← MySQL DB 저장
+
+        model.addAttribute("message", "게시글이 DB에 등록되었습니다!");
+        model.addAttribute("boardList", boardService.list());
+
+        return "redirect:/board/list"; // ★ 새로고침해도 insert 재실행 안됨
     }
 
     // 게시글 목록 화면
     @GetMapping("/list")
     public String list(Model model) {
+        List<Board> boardList = boardService.list();
         model.addAttribute("boardList", boardList);
         return "/board/board_list";
     }
+
+    // 상세 페이지
+    @PostMapping("/detail")
+    public String detail(@RequestParam Long id, Model model) {
+        Board post = boardService.getBoardDetail(id);
+        model.addAttribute("post", post);
+        return "/board/board_detail";
+    }
+
+    // 수정 페이지
+    @PostMapping("/edit")
+    public String editForm(@RequestParam Long id, Model model) {
+        Board post = boardService.getBoardDetail(id);
+        model.addAttribute("post", post);
+        return "board/board_edit";
+    }
+
+    // 수정 처리
+    @PostMapping("/update")
+    public String update(Board dto) {
+        boardService.update(dto);
+        return "redirect:/board/list";
+    }
+
+    // 삭제 처리
+    @PostMapping("/delete")
+    public String delete(@RequestParam Long id) {
+        boardService.delete(id);
+        return "redirect:/board/list";
+    }
+
+
 }

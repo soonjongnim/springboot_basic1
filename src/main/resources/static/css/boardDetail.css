@@ -1,0 +1,82 @@
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f5f6fa;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 700px;
+    margin: 60px auto;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 14px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+}
+
+h2 {
+    margin-top: 0;
+    font-size: 26px;
+    font-weight: 600;
+    color: #333;
+    border-left: 6px solid #4b7bec;
+    padding-left: 12px;
+}
+
+.item {
+    margin-bottom: 15px;
+}
+
+.item span {
+    display: inline-block;
+    width: 100px;
+    font-weight: bold;
+    color: #555;
+}
+
+.content-box {
+    background: #f7f9fc;
+    padding: 15px;
+    border-radius: 10px;
+    line-height: 1.6;
+    white-space: pre-line;
+    border: 1px solid #e6e9ef;
+}
+
+.btn-area {
+    margin-top: 25px;
+    text-align: right;
+}
+
+.btn {
+    padding: 10px 18px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.btn-list {
+    background: #4b7bec;
+    color: #fff;
+}
+.btn-list:hover {
+    background: #3867d6;
+}
+
+.btn-edit {
+    background: #20bf6b;
+    color: #fff;
+}
+.btn-edit:hover {
+    background: #0fbf4b;
+}
+
+.btn-delete {
+    background: #eb3b5a;
+    color: #fff;
+}
+.btn-delete:hover {
+    background: #d11e40;
+}
