@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/footer.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/boardList.css">
 </head>
-<body>
+<body style="background: linear-gradient(135deg, #74b9ff, #a29bfe);">
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
 <main>
     <h1>게시판 목록</h1>

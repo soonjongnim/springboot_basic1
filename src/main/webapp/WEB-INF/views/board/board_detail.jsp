@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/footer.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/boardDetail.css">
 </head>
-<body>
+<body style="background: linear-gradient(135deg, #74b9ff, #a29bfe);">
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
 <div class="container">
     <h2>게시글 상세보기</h2>

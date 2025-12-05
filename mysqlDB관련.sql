@@ -19,6 +19,17 @@ CREATE TABLE board (
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE member (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    phone VARCHAR(20) DEFAULT NULL,
+    oauth_id VARCHAR(50) UNIQUE NULL COMMENT '카카오,네이버,구글등등.. 로그인 ID',
+    type VARCHAR(20) NOT NULL DEFAULT 'LOCAL' COMMENT '회원가입 타입: LOCAL, KAKAO, NAVER, GOOGLE 등',
+    created_at DATETIME NOT NULL DEFAULT NOW()
+);
+
 SELECT user, host, plugin FROM mysql.user WHERE user='soon9086';
 
 ALTER USER 'soon9086'@'%' IDENTIFIED WITH mysql_native_password BY '1234';

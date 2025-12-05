@@ -1,5 +1,6 @@
 package com.soon9086.basic1.boundedContext.home.controller;
 
+import com.soon9086.basic1.boundedContext.member.dto.MemberDTO;
 import com.soon9086.basic1.boundedContext.member.entity.Member;
 import com.soon9086.basic1.boundedContext.member.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -38,7 +39,7 @@ public class HomeController {
 
         if(loginedMemberId != null) {
             // 로그인 되어있으면 Member 정보 가져오기
-            Member member = memberService.findById(loginedMemberId);
+            MemberDTO member = memberService.findById(loginedMemberId);
             System.out.println(member);
             model.addAttribute("member", member);
         }

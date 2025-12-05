@@ -10,7 +10,7 @@
 <body>
 <div class="form-container">
     <h2>회원가입</h2>
-    <form action="${pageContext.request.contextPath}/member/register" method="post">
+    <form action="${pageContext.request.contextPath}/member/join" method="post">
         <div class="input-group">
             <label for="username">이름</label>
             <input type="text" id="username" name="username" placeholder="이름을 입력하세요" required>
@@ -31,14 +31,18 @@
             <input type="password" id="confirm" name="confirm" placeholder="비밀번호를 다시 입력하세요" required>
         </div>
 
-        <button type="submit">회원가입</button>
+        <button type="submit">인증하기</button>
     </form>
     <p class="login-link">
         이미 계정이 있으신가요?
         <a href="${pageContext.request.contextPath}/member/login">로그인</a>
     </p>
 </div>
-
+<c:if test="${not empty errorMessage}">
+    <script>
+        alert("${errorMessage}");
+    </script>
+</c:if>
 <script src="${pageContext.request.contextPath}/js/member.js"></script>
 </body>
 </html>

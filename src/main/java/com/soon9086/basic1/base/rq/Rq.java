@@ -18,48 +18,17 @@ public class Rq {
     private HttpServletRequest req;
     private HttpServletResponse resp;
 
-    public void setCookie(String name, long value) {
-        setCookie(name, value + "");
-    }
-    private void setCookie(String name, String value) {
-        resp.addCookie(new Cookie(name, value));
-    }
-
-    public boolean removeCookie(String name) {
-        Cookie cookie = Arrays.stream(req.getCookies())
-                .filter(c -> c.getName().equals(name))
-                .findFirst()
-                .orElse(null);
-        if(cookie != null) {
-            cookie.setMaxAge(0);
-            resp.addCookie(cookie);
-            return true;
-        }
-        return false;
-    }
-
-    public long getCookieAsLong(String name, long defaultValue) {
-        String value = getCookie(name, null);
-        if(value == null) return defaultValue;
-        try {
-            return Long.parseLong(value);
-        }  catch (NumberFormatException e) {
-            return defaultValue;
-        }
-    }
-
-    private String getCookie(String name, String defaultValue) {
-        if(req.getCookies() == null) return defaultValue;
-        return Arrays.stream(req.getCookies())
-                .filter(cookie -> cookie.getName().equals(name))
-                .map(Cookie::getValue)
-                .findFirst()
-                .orElse(defaultValue);
-    }
-
+    // 인증 성공 기록 저장
     public void setSession(String name, long value) {
         HttpSession  session = req.getSession();
         session.setAttribute(name, value);
+    }
+
+    // 인증 성공 여부 가져오기
+    public boolean isSessionSuccess(String name) {
+        Object value = req.getSession().getAttribute(name);
+        if (value instanceof Boolean) return (Boolean) value;
+        return false;
     }
 
     public long getSessionAsLong(String name, long defaultValue) {
@@ -75,16 +44,7 @@ public class Rq {
         }
     }
 
-    public String getSessionAsStr(String name, String defaultValue) {
-        try {
-            String value = (String) req.getSession().getAttribute(name);
-            if(value == null) return defaultValue;
-            return value;
-        }  catch (NumberFormatException e) {
-            return defaultValue;
-        }
-    }
-
+    // 인증 성공 기록 제거
     public boolean removeSession(String name) {
         HttpSession session = req.getSession();
         if(session.getAttribute(name) == null) return false;    // 세션을 가져왔는데 없으면 못한다.
@@ -94,7 +54,6 @@ public class Rq {
 
     // HttpServletRequest를 받아서 현재 세션의 정보를 문자열로 반환하는 메서드
     public String getSessionDebugInfo() {
-
         // 문자열을 효율적으로 연결하기 위한 StringBuilder 생성
         StringBuilder debug = new StringBuilder();
 
@@ -112,22 +71,16 @@ public class Rq {
 
         // 세션 ID 출력
         debug.append("Session ID: ").append(session.getId()).append("\n");
-
         // 세션 생성 시간 출력 (Date 객체로 보기 쉽게 변환)
         debug.append("Creation Time: ").append(new java.util.Date(session.getCreationTime())).append("\n");
-
         // 세션의 마지막 접근 시간 출력
         debug.append("Last Accessed Time: ").append(new java.util.Date(session.getLastAccessedTime())).append("\n");
-
         // 세션의 최대 유효 시간(초 단위) 출력
         debug.append("Max Inactive Interval: ").append(session.getMaxInactiveInterval()).append(" seconds\n");
-
         // 세션이 새로 생성된 것인지 여부 출력
         debug.append("Is New: ").append(session.isNew()).append("\n");
-
         // 세션에 저장된 속성(Attribute)들을 나열하기 위한 구분선
         debug.append("\nSession Attributes:\n");
-
         // 세션에 저장된 모든 속성 이름을 가져옴
         Enumeration<String> attributeNames = session.getAttributeNames();
 
@@ -145,7 +98,6 @@ public class Rq {
 
         // 출력 구분선 마무리
         debug.append("--------------------------------\n");
-
         // 완성된 문자열 반환
         return debug.toString();
     }

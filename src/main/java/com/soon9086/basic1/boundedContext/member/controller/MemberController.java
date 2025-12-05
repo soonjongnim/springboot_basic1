@@ -2,72 +2,84 @@ package com.soon9086.basic1.boundedContext.member.controller;
 
 import com.soon9086.basic1.base.rq.Rq;
 import com.soon9086.basic1.base.rsData.RsData;
+import com.soon9086.basic1.boundedContext.member.dto.MemberDTO;
 import com.soon9086.basic1.boundedContext.member.entity.Member;
 import com.soon9086.basic1.boundedContext.member.service.MemberService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 
-@AllArgsConstructor // 자동 생성자 주입
+@Slf4j
 @Controller
 public class MemberController {
     private final MemberService memberService;
     private final Rq rq;
+    private final String kakaoClientId;
+    private final String kakaoRedirectUri;
 
-    // 생성자 주입
-    /*
-    public MemberController() {
-        memberService = new MemberService();
+    // ✅ 생성자에서 @Value로 프로퍼티 주입 (최신 권장 방식)
+    public MemberController(
+            MemberService memberService,
+            Rq rq,
+            @Value("${spring.security.oauth2.client.registration.kakao.client-id}") String kakaoClientId,
+            @Value("${spring.security.oauth2.client.registration.kakao.redirect-uri}") String kakaoRedirectUri
+    ) {
+        this.memberService = memberService;
+        this.rq = rq;
+        this.kakaoClientId = kakaoClientId;
+        this.kakaoRedirectUri = kakaoRedirectUri;
     }
-    */
 
     // 회원가입 페이지
-    @GetMapping("/member/register")
-    public String showRegisterPage() {
-        return "member/register";  // --> /WEB-INF/views/member/register.jsp
+    @GetMapping("/member/join")
+    public String showRegisterPage(HttpSession session) {
+        return "member/join";  // --> /WEB-INF/views/member/join.jsp
     }
 
     // 회원가입 처리
-    @PostMapping("/member/register")
+    @PostMapping("/member/join")
     public String doRegister(@RequestParam String username,
                              @RequestParam String email,
                              @RequestParam String password,
-                             @RequestParam String confirm) {
+                             @RequestParam String confirm,
+                             HttpSession session,
+                             Model model) {
 
+        // 비밀번호 확인 체크
         if (!password.equals(confirm)) {
-            System.out.println("비밀번호 불일치!");
-            return "redirect:/member/register?error=password";
+            model.addAttribute("errorMessage", "비밀번호가 일치하지 않습니다.");
+            return "member/join";   // redirect 사용하면 데이터가 사라지므로 주의!
         }
 
         System.out.printf("회원가입 성공: %s / %s%n", username, email);
-        return "redirect:/member/login";
+        // 세션에 임시 저장
+        session.setAttribute("tmp_username", username);
+        session.setAttribute("tmp_email", email);
+        session.setAttribute("tmp_password", password);
+
+        return "redirect:/auth/phone";
     }
 
     // 로그인페이지
     @GetMapping("/member/login")
-    public String login() {
-//        if(rq.isLogined()) {
-//            return """
-//                    <script>
-//                        alert("이미 로그인 되어있습니다.");
-//                    </script>
-//                    """;
-//        }
-
+    public String login(Model model) {
+        log.info("Member login get......");
+        model.addAttribute("kakaoClientId", kakaoClientId);
+        model.addAttribute("kakaoRedirectUri", kakaoRedirectUri);
         return "member/login";  // → /WEB-INF/views/member/login.jsp
     }
 
     // 로그인 처리
-    @PostMapping("/member/login")
+    @PostMapping("/member/loginProcess")
     public String login(String username, String password) {
         if(username.trim().isEmpty()) {
             // 로그인 페이지로 돌아가면서 에러 메시지 전달 가능
@@ -79,7 +91,7 @@ public class MemberController {
         RsData rsData = memberService.tryLogin(username, password);
         if(rsData.isSuccess()) {
             // 쿠키
-            Member member = (Member) rsData.getData();
+            MemberDTO member = (MemberDTO) rsData.getData();
             rq.setSession("loginedMemberId", member.getId());
             // 로그인 성공 시 메인 페이지로 이동
             return "redirect:/";
@@ -101,7 +113,8 @@ public class MemberController {
     public String showMe(Model model) {
         long loginedMemberId = rq.getLoginedMember();
         System.out.println("loginedMemberId: " + loginedMemberId);
-        Member member = memberService.findById(loginedMemberId);
+        // DB에서 회원 정보 가져오기
+        MemberDTO member = memberService.findById(loginedMemberId);
         model.addAttribute("member", member);
         return "member/me";
     }

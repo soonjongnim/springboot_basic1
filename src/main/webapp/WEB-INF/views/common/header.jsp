@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css">
 <header class="navbar">
     <div class="logo">🌿 MySpringSite</div>
     <nav class="menu">
@@ -16,7 +17,7 @@
             </c:when>
             <c:otherwise>
                 <a href="${pageContext.request.contextPath}/member/login">로그인</a>
-                <a class="outline" href="${pageContext.request.contextPath}/member/register">회원가입</a>
+                <a class="outline" href="${pageContext.request.contextPath}/member/join">회원가입</a>
             </c:otherwise>
         </c:choose>
 
